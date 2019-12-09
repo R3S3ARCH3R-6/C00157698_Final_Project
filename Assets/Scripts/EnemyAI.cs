@@ -7,7 +7,7 @@ using UnityEngine.AI;     //enables the project to use Unity AI library
 /// enum ...
 /// </summary>
 //FSM States for the enemy
-public enum EnemyState { CHASE, MOVING, DEFAULT };
+public enum EnemyState { CHASE, MOVING, DEFAULT, ATTACK};
 //Default - init state (when it is not moving)
 //other states will be based on the player's rotation/movement
 
@@ -22,15 +22,22 @@ public class EnemyAI : MonoBehaviour
     NavMeshAgent agent; //used to move along the navmesh
 
     public float chaseDistance = 20.0f; //distance the enemy must be before it chases the player
+    public float attackDistance = 7.0f; //distance the enemy must be before it attacks the player
 
     protected EnemyState state = EnemyState.DEFAULT;    //init state in FSM is Default
     protected Vector3 destination = new Vector3(0, 0, 0);   //initial destination is the zero vector
 
     AudioSource myaudio;    //audio component
 
+    public int enemyHealth = 3;
+
     //Particle Sys. Explosion
     ParticleSystem explosion;
     bool explosionStarted = false;     //says whether the explosion has started or not (prevents repeats)
+
+    private float bulletForce = 20f; //force of the bullet being fired at the player
+
+    public GameObject enemyBullet;
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +81,11 @@ public class EnemyAI : MonoBehaviour
                     state = EnemyState.MOVING;
                     agent.SetDestination(destination);  //destination will be a random location
                 }
+
+                if (Vector3.Distance(transform.position, player.transform.position) <= attackDistance)
+                {
+                    state = EnemyState.ATTACK;
+                }
                 break;
             //Moving state controls random movement
             case EnemyState.MOVING:
@@ -88,6 +100,11 @@ public class EnemyAI : MonoBehaviour
                 {
                     state = EnemyState.CHASE;
                 }
+                
+                if (Vector3.Distance(transform.position, player.transform.position) <= attackDistance)
+                {
+                    state = EnemyState.ATTACK;
+                }
                 break;
             //state that chases the player
             case EnemyState.CHASE:
@@ -96,11 +113,40 @@ public class EnemyAI : MonoBehaviour
                 {
                     state = EnemyState.DEFAULT;
                 }
+
+                if(Vector3.Distance(transform.position, player.transform.position) <= attackDistance)
+                {
+                    state = EnemyState.ATTACK;
+                }
+
                 agent.SetDestination(player.transform.position);    //moves the enemy to the player's position
+
+                break;
+            //state where the enemy attacks the player
+            case EnemyState.ATTACK:
+                if(Vector3.Distance(transform.position, player.transform.position) > attackDistance)
+                {
+                    state = EnemyState.CHASE;
+                }
+
+                if (Vector3.Distance(transform.position, player.transform.position) > chaseDistance)
+                {
+                    state = EnemyState.DEFAULT;
+                }
+                Attack();
+
                 break;
             default:
                 break;
         }
+
+    }
+
+    /// <summary>
+    /// ...
+    /// </summary>
+    void Attack()
+    {
 
     }
 
