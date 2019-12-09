@@ -20,7 +20,7 @@ public class EnemyAI : MonoBehaviour
 {
     GameObject player;  //the player
     NavMeshAgent agent; //used to move along the navmesh
-
+    
     public float chaseDistance = 20.0f; //distance the enemy must be before it chases the player
     public float attackDistance = 7.0f; //distance the enemy must be before it attacks the player
 
@@ -34,10 +34,8 @@ public class EnemyAI : MonoBehaviour
     //Particle Sys. Explosion
     ParticleSystem explosion;
     bool explosionStarted = false;     //says whether the explosion has started or not (prevents repeats)
-
-    private float bulletForce = 20f; //force of the bullet being fired at the player
-
-    public GameObject enemyBullet;
+    
+    GameObject firingPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +43,8 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         //assigns anything with the tag "Player" in the scene to the object "player"
 
+        //firingPoint = gameObject.GetComponentInChildren<EnemyShoot>() ;
+        
         agent = this.GetComponent<NavMeshAgent>();  //gets the NavMeshAgent component
 
         myaudio = GetComponent<AudioSource>();  //get audio source component
@@ -133,7 +133,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     state = EnemyState.DEFAULT;
                 }
-                Attack();
+                
 
                 break;
             default:
@@ -142,13 +142,6 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// ...
-    /// </summary>
-    void Attack()
-    {
-
-    }
 
     /// <summary>
     /// this enables the player to take damage from bullets, 

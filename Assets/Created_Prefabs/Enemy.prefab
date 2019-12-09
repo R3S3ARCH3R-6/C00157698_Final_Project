@@ -4924,7 +4924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1487224869351480462
 Transform:
   m_ObjectHideFlags: 0
@@ -5034,7 +5034,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a7054be6b7ddbda498db2ff755ed46ed, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0b3e5bdccd22242cab2df15c33af91fb, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -5133,6 +5133,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseDistance: 20
+  attackDistance: 7
+  enemyHealth: 3
+  enemyBullet: {fileID: 1597768777266039763, guid: 4b64ab3ff3e27134b8deb2774854deb8,
+    type: 3}
 --- !u!1 &1487224869773268638
 GameObject:
   m_ObjectHideFlags: 0
