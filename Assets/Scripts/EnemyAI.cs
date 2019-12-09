@@ -94,16 +94,19 @@ public class EnemyAI : MonoBehaviour
                 if (Vector3.Distance(transform.position, destination) < 5)
                 {
                     state = EnemyState.DEFAULT;
+                    firePoint.shoot = false;
                 }
                 //if the enemy gets close enough to the player, switch to the chase state and chase the player
                 if (Vector3.Distance(transform.position, player.transform.position) < chaseDistance)
                 {
                     state = EnemyState.CHASE;
+                    firePoint.shoot = false;
                 }
                 
                 if (Vector3.Distance(transform.position, player.transform.position) <= attackDistance)
                 {
                     state = EnemyState.ATTACK;
+                    firePoint.shoot = true;
                 }
                 break;
             //state that chases the player
@@ -112,13 +115,14 @@ public class EnemyAI : MonoBehaviour
                 if (Vector3.Distance(transform.position, player.transform.position) > chaseDistance)
                 {
                     state = EnemyState.DEFAULT;
+                    firePoint.shoot = false;
                 }
 
                 if(Vector3.Distance(transform.position, player.transform.position) <= attackDistance)
                 {
                     state = EnemyState.ATTACK;
+                    firePoint.shoot = true;
                 }
-
                 agent.SetDestination(player.transform.position);    //moves the enemy to the player's position
 
                 break;
@@ -127,15 +131,18 @@ public class EnemyAI : MonoBehaviour
                 if(Vector3.Distance(transform.position, player.transform.position) > attackDistance)
                 {
                     state = EnemyState.CHASE;
+                    firePoint.shoot = false;
                 }
 
                 if (Vector3.Distance(transform.position, player.transform.position) > chaseDistance)
                 {
                     state = EnemyState.DEFAULT;
+                    firePoint.shoot = false;
                 }
+                firePoint.shoot = true;
                 //firePoint.Update();
-                //firePoint.FireBullet();
-                firePoint.ReloadDelay(2);
+                //firePoint.ReloadDelay(2);
+                firePoint.FireBullet();
 
                 break;
             default:
