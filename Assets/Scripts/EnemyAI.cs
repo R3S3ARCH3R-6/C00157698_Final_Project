@@ -42,7 +42,8 @@ public class EnemyAI : MonoBehaviour
 
         myaudio = GetComponent<AudioSource>();  //get audio source component
 
-        explosion = transform.GetComponent<ParticleSystem>();   //gets particle sys. component attached to the enemy
+        //explosion = transform.GetComponent<ParticleSystem>();   //gets particle sys. component attached to the enemy
+        explosion = GetComponentInChildren<ParticleSystem>();   //gets particle sys. component attached to the enemy
     }
 
     //creates a random position for the enemy to be in or go to
@@ -120,7 +121,8 @@ public class EnemyAI : MonoBehaviour
 
             StartCoroutine(PlayAndDestroy(myaudio.clip.length));
 
-            gameObject.GetComponent<ParticleSystemRenderer>().enabled = true;   //needed or the particle sys. won't show up
+            //gameObject.GetComponent<ParticleSystemRenderer>().enabled = true;   //needed or the particle sys. won't show up
+            gameObject.GetComponentInChildren<ParticleSystemRenderer>().enabled = true;   //needed or the particle sys. won't show up
             StartExplosion();   //makes explosion occur when the enemy is hit
             StartCoroutine(PlayAndDestroy(myaudio.clip.length));
         }
@@ -154,5 +156,6 @@ public class EnemyAI : MonoBehaviour
     {
         explosionStarted = false;
         explosion.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        //explosion.Stop();
     }
 }
