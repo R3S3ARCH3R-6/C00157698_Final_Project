@@ -11,6 +11,7 @@ TagManager:
   - Super_Fruit
   - Bullet
   - Goal
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX

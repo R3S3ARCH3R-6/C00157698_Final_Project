@@ -19,8 +19,8 @@ public class EnemyShoot : MonoBehaviour
 
     private bool RT_used = false;
 
-    private float shootTime = 0.5f;
-    private float reloadTime = 0.5f;
+    private float shootTime = 2.0f;
+    private float reloadTime = 2.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -31,17 +31,18 @@ public class EnemyShoot : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    /*public void Update()
     {
-        if(shootTime > 0)
+        /*if(shootTime > 0)
         {
             FireBullet();
             shootTime -= Time.deltaTime;
         }
-        shootTime = reloadTime;
-    }
+        shootTime = reloadTime;*/
+        /*StartCoroutine(ReloadDelay(reloadTime));
+    }*/
 
-    private void FireBullet()
+    public void FireBullet()
     {
 
         //create a bullet instance
@@ -52,6 +53,27 @@ public class EnemyShoot : MonoBehaviour
 
         //add force to shoot
         currentBullet.GetComponent<Rigidbody>().AddForce(transform.forward * BulletForce);
+        StartCoroutine(ReloadDelay(reloadTime));
+        gunfire.Play();
+        gunEffect.Play();
+        //Destroy it after a certain time
+        Destroy(currentBullet, destroyTime);
+    }
+
+    public IEnumerator ReloadDelay(float reload)
+    {
+        //FireBullet();
+        yield return new WaitForSeconds(reload);
+        
+        //create a bullet instance
+        GameObject currentBullet = Instantiate(Bullet, this.transform.position, new Quaternion(90.0f, 0f, 0f, 100f)) as GameObject;
+        //fix scale
+        currentBullet.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+        //currentBullet.transform.rotation = new Quaternion(90f, 0f, 0f, 100f);
+
+        //add force to shoot
+        currentBullet.GetComponent<Rigidbody>().AddForce(transform.forward * BulletForce);
+        StartCoroutine(ReloadDelay(reloadTime));
         gunfire.Play();
         gunEffect.Play();
         //Destroy it after a certain time

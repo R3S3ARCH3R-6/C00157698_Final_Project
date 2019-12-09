@@ -35,7 +35,7 @@ public class EnemyAI : MonoBehaviour
     ParticleSystem explosion;
     bool explosionStarted = false;     //says whether the explosion has started or not (prevents repeats)
     
-    GameObject firingPoint;
+    EnemyShoot firePoint;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +43,7 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         //assigns anything with the tag "Player" in the scene to the object "player"
 
-        //firingPoint = gameObject.GetComponentInChildren<EnemyShoot>() ;
+        firePoint = gameObject.GetComponentInChildren<EnemyShoot>() ;
         
         agent = this.GetComponent<NavMeshAgent>();  //gets the NavMeshAgent component
 
@@ -133,7 +133,9 @@ public class EnemyAI : MonoBehaviour
                 {
                     state = EnemyState.DEFAULT;
                 }
-                
+                //firePoint.Update();
+                //firePoint.FireBullet();
+                firePoint.ReloadDelay(2);
 
                 break;
             default:
@@ -155,9 +157,12 @@ public class EnemyAI : MonoBehaviour
             // Disable all Renderers and Colliders
             Renderer[] allRenderers = gameObject.GetComponentsInChildren<Renderer>();
             foreach (Renderer c in allRenderers) c.enabled = false;
+            
             Collider[] allColliders = gameObject.GetComponentsInChildren<Collider>();
             foreach (Collider c in allColliders) c.enabled = false;
-
+            
+            EnemyShoot[] allShots = gameObject.GetComponentsInChildren<EnemyShoot>();
+            foreach (EnemyShoot c in allShots) c.enabled = false;
             StartCoroutine(PlayAndDestroy(myaudio.clip.length));
 
             //gameObject.GetComponent<ParticleSystemRenderer>().enabled = true;   //needed or the particle sys. won't show up
