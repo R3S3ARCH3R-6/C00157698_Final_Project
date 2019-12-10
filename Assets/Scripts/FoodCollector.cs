@@ -23,6 +23,14 @@ public class FoodCollector : MonoBehaviour
         healthText.text = "Foo Health: " + playerHealth.ToString();
     }
 
+    private void Update()
+    {
+        if(playerHealth <= 0)
+        {
+            CompleteGame();
+        }
+    }
+
     /// <summary>
     /// called when ...
     /// </summary>
@@ -44,7 +52,7 @@ public class FoodCollector : MonoBehaviour
             healthText.text = "Foo Health: " + playerHealth.ToString();
         }
 
-        if (other.gameObject.CompareTag("Bullet") && superOn == false)
+        if (other.gameObject.CompareTag("EnemyBullet") && superOn == false)
         {
             playerHealth -= 20; //change val based on food type
             healthText.text = "Foo Health: " + playerHealth.ToString(); //display new health val.

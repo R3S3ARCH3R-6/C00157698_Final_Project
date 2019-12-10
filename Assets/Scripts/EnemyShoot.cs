@@ -13,7 +13,7 @@ public class EnemyShoot : MonoBehaviour
     public GameObject Bullet;   //what is being fired from the gun
 
     //Enter the Speed of the Bullet from the Component Inspector.
-    public float BulletForce = 100.0f;  //value of the force being applied to the bullet
+    public float BulletForce = 500.0f;  //value of the force being applied to the bullet
 
     //Destroy time (time the bullet lasts onscreen)
     public float destroyTime = 3.0f;    //(bullet gets destroyed after 3 seconds)
@@ -36,9 +36,14 @@ public class EnemyShoot : MonoBehaviour
         gunEffect = GetComponent<ParticleSystem>();
     }
 
+    /*private void Update()
+    {
+        FireBullet();
+    }*/
+
     public void FireBullet()
     {
-        Vector3 aim = transform.position - player.transform.position;
+        Vector3 aim = player.transform.position - transform.position;
         transform.rotation = Quaternion.LookRotation(aim);
         
         //create a bullet instance

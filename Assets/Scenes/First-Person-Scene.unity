@@ -6152,7 +6152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1089216436
 Transform:
   m_ObjectHideFlags: 0
@@ -12243,6 +12243,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -69.309006
+      objectReference: {fileID: 0}
+    - target: {fileID: 990554390, guid: fa298c2cd4727b44893e55406263ebd6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 990554390, guid: fa298c2cd4727b44893e55406263ebd6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773475379598035672, guid: fa298c2cd4727b44893e55406263ebd6,
+        type: 3}
+      propertyPath: attackDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 990554391, guid: fa298c2cd4727b44893e55406263ebd6, type: 3}
+      propertyPath: BulletForce
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa298c2cd4727b44893e55406263ebd6, type: 3}

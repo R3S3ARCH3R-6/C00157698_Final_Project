@@ -22,7 +22,7 @@ public class EnemyAI : MonoBehaviour
     NavMeshAgent agent; //used to move along the navmesh
     
     public float chaseDistance = 20.0f; //distance the enemy must be before it chases the player
-    public float attackDistance = 7.0f; //distance the enemy must be before it attacks the player
+    public float attackDistance = 15.0f; //distance the enemy must be before it attacks the player
 
     protected EnemyState state = EnemyState.DEFAULT;    //init state in FSM is Default
     protected Vector3 destination = new Vector3(0, 0, 0);   //initial destination is the zero vector
