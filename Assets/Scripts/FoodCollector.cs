@@ -12,6 +12,8 @@ public class FoodCollector : MonoBehaviour
     public static int playerHealth = 100; //initial player health value
     public Text healthText;
 
+    SuperFruitScript superFruit;
+
     public bool superOn = false;
     float superTime = 20.0f;
     float superReset = 20.0f;
@@ -21,16 +23,19 @@ public class FoodCollector : MonoBehaviour
     {
         //displays the initial value of the player's health
         healthText.text = "Foo Health: " + playerHealth.ToString();
+
+        superFruit = GetComponent<SuperFruitScript>();
+        superFruit.enabled = false;
     }
 
     private void Update()
     {
-
-
         if(playerHealth <= 0)
         {
             CompleteGame();
         }
+
+        //superClock.text = "SUPER MODE ACTIVE!"; //+ Mathf.Round(superTime).ToString() + "s";
     }
 
     /// <summary>
@@ -67,19 +72,25 @@ public class FoodCollector : MonoBehaviour
 
         if (other.gameObject.CompareTag("Super_Fruit"))
         {
+            superTime = superReset;
             if(superTime > 0)
             {
                 superOn = true;
+                superFruit.enabled = true;
                 superTime -= Time.deltaTime;
+                //superClock.text = "SUPER MODE ACTIVE! "; //+ Mathf.Round(superTime).ToString() + "s";
             }
             else
             {
-                superTime = superReset;
+                superFruit.enabled = false;
+                //superTime = superReset;
                 superOn = false;
             }
 
         }
     }
+
+
 
     /// <summary>
     /// called when ...

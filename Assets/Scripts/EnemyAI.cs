@@ -40,6 +40,8 @@ public class EnemyAI : MonoBehaviour
     private float shootTime = 1.0f;
     private float reloadTime = 1.0f;
 
+    public int killCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +54,6 @@ public class EnemyAI : MonoBehaviour
 
         myaudio = GetComponent<AudioSource>();  //get audio source component
 
-        //explosion = transform.GetComponent<ParticleSystem>();   //gets particle sys. component attached to the enemy
         explosion = GetComponentInChildren<ParticleSystem>();   //gets particle sys. component attached to the enemy
     }
 
@@ -152,7 +153,6 @@ public class EnemyAI : MonoBehaviour
             default:
                 break;
         }
-
     }
 
 
@@ -169,6 +169,8 @@ public class EnemyAI : MonoBehaviour
 
             if(enemyHealth <= 0)
             {
+                killCount++;
+
                 EnemyShoot[] allShots = gameObject.GetComponentsInChildren<EnemyShoot>();
                 foreach (EnemyShoot c in allShots) c.enabled = false;
                 
@@ -186,8 +188,6 @@ public class EnemyAI : MonoBehaviour
                 StartExplosion();   //makes explosion occur when the enemy is hit
                 StartCoroutine(PlayAndDestroy(reloadTime));
             }
-
-            
         }
     }
 
