@@ -4904,7 +4904,7 @@ GameObject:
   - component: {fileID: 155920739260105499}
   m_Layer: 0
   m_Name: FiringPoint
-  m_TagString: Untagged
+  m_TagString: EnShoot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4934,7 +4934,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 21a0bc62fd3546f4f85d31fd05d81ce9, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -5034,7 +5034,6 @@ MonoBehaviour:
   Bullet: {fileID: 1597768777266039763, guid: 2077a366dad319b44ab715d4cc9038f4, type: 3}
   BulletForce: 500
   destroyTime: 3
-  shoot: 0
 --- !u!198 &2998222664781683414
 ParticleSystem:
   m_ObjectHideFlags: 0

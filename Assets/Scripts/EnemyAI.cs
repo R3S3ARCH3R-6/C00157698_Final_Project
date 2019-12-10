@@ -37,6 +37,9 @@ public class EnemyAI : MonoBehaviour
     
     EnemyShoot firePoint;
 
+    private float shootTime = 1.0f;
+    private float reloadTime = 1.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -94,19 +97,19 @@ public class EnemyAI : MonoBehaviour
                 if (Vector3.Distance(transform.position, destination) < 5)
                 {
                     state = EnemyState.DEFAULT;
-                    firePoint.shoot = false;
+                    //firePoint.shoot = false;
                 }
                 //if the enemy gets close enough to the player, switch to the chase state and chase the player
                 if (Vector3.Distance(transform.position, player.transform.position) < chaseDistance)
                 {
                     state = EnemyState.CHASE;
-                    firePoint.shoot = false;
+                    //firePoint.shoot = false;
                 }
                 
                 if (Vector3.Distance(transform.position, player.transform.position) <= attackDistance)
                 {
                     state = EnemyState.ATTACK;
-                    firePoint.shoot = true;
+                    //firePoint.shoot = true;
                 }
                 break;
             //state that chases the player
@@ -115,13 +118,13 @@ public class EnemyAI : MonoBehaviour
                 if (Vector3.Distance(transform.position, player.transform.position) > chaseDistance)
                 {
                     state = EnemyState.DEFAULT;
-                    firePoint.shoot = false;
+                    //firePoint.shoot = false;
                 }
 
                 if(Vector3.Distance(transform.position, player.transform.position) <= attackDistance)
                 {
                     state = EnemyState.ATTACK;
-                    firePoint.shoot = true;
+                    //firePoint.shoot = true;
                 }
                 agent.SetDestination(player.transform.position);    //moves the enemy to the player's position
 
@@ -131,20 +134,21 @@ public class EnemyAI : MonoBehaviour
                 if(Vector3.Distance(transform.position, player.transform.position) > attackDistance)
                 {
                     state = EnemyState.CHASE;
-                    firePoint.shoot = false;
+                    //firePoint.shoot = false;
                 }
 
                 if (Vector3.Distance(transform.position, player.transform.position) > chaseDistance)
                 {
                     state = EnemyState.DEFAULT;
-                    firePoint.shoot = false;
+                    //firePoint.shoot = false;
                 }
-                firePoint.shoot = true;
-                //firePoint.Update();
-                //firePoint.ReloadDelay(2);
-                firePoint.FireBullet();
 
-                break;
+                if (Time.time > shootTime)
+                {
+                    firePoint.FireBullet();
+                    shootTime = Time.time + reloadTime;
+                }
+                    break;
             default:
                 break;
         }
@@ -161,21 +165,29 @@ public class EnemyAI : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Bullet"))
         {
-            // Disable all Renderers and Colliders
-            Renderer[] allRenderers = gameObject.GetComponentsInChildren<Renderer>();
-            foreach (Renderer c in allRenderers) c.enabled = false;
-            
-            Collider[] allColliders = gameObject.GetComponentsInChildren<Collider>();
-            foreach (Collider c in allColliders) c.enabled = false;
-            
-            EnemyShoot[] allShots = gameObject.GetComponentsInChildren<EnemyShoot>();
-            foreach (EnemyShoot c in allShots) c.enabled = false;
-            StartCoroutine(PlayAndDestroy(myaudio.clip.length));
+            enemyHealth--;
 
-            //gameObject.GetComponent<ParticleSystemRenderer>().enabled = true;   //needed or the particle sys. won't show up
-            gameObject.GetComponentInChildren<ParticleSystemRenderer>().enabled = true;   //needed or the particle sys. won't show up
-            StartExplosion();   //makes explosion occur when the enemy is hit
-            StartCoroutine(PlayAndDestroy(myaudio.clip.length));
+            if(enemyHealth <= 0)
+            {
+                EnemyShoot[] allShots = gameObject.GetComponentsInChildren<EnemyShoot>();
+                foreach (EnemyShoot c in allShots) c.enabled = false;
+                
+                // Disable all Renderers and Colliders
+                Renderer[] allRenderers = gameObject.GetComponentsInChildren<Renderer>();
+                foreach (Renderer c in allRenderers) c.enabled = false;
+            
+                Collider[] allColliders = gameObject.GetComponentsInChildren<Collider>();
+                foreach (Collider c in allColliders) c.enabled = false;
+
+                //StartCoroutine(PlayAndDestroy(myaudio.clip.length));
+
+                //gameObject.GetComponent<ParticleSystemRenderer>().enabled = true;   //needed or the particle sys. won't show up
+                gameObject.GetComponentInChildren<ParticleSystemRenderer>().enabled = true;   //needed or the particle sys. won't show up
+                StartExplosion();   //makes explosion occur when the enemy is hit
+                StartCoroutine(PlayAndDestroy(reloadTime));
+            }
+
+            
         }
     }
 

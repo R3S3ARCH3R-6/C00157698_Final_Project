@@ -17,12 +17,10 @@ public class EnemyShoot : MonoBehaviour
 
     //Destroy time (time the bullet lasts onscreen)
     public float destroyTime = 3.0f;    //(bullet gets destroyed after 3 seconds)
-    public bool shoot = false;
+    //public bool shoot = false;
 
     AudioSource gunfire;
     private ParticleSystem gunEffect;
-
-    private bool RT_used = false;
 
     GameObject player;
 
@@ -36,10 +34,6 @@ public class EnemyShoot : MonoBehaviour
         gunEffect = GetComponent<ParticleSystem>();
     }
 
-    /*private void Update()
-    {
-        FireBullet();
-    }*/
 
     public void FireBullet()
     {
