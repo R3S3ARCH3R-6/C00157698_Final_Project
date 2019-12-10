@@ -48,13 +48,13 @@ public class FoodCollector : MonoBehaviour
         //decreases player's health whenever he comes into contact with junk food
         if (other.gameObject.CompareTag("Junk_Food") && superOn == false)
         {
-            playerHealth -= 10;
+            playerHealth -= 5;
             healthText.text = "Foo Health: " + playerHealth.ToString();
         }
 
         if (other.gameObject.CompareTag("EnemyBullet") && superOn == false)
         {
-            playerHealth -= 20; //change val based on food type
+            playerHealth -= 5; //change val based on food type
             healthText.text = "Foo Health: " + playerHealth.ToString(); //display new health val.
         }
 
