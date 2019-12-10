@@ -25,6 +25,8 @@ public class FoodCollector : MonoBehaviour
 
     private void Update()
     {
+
+
         if(playerHealth <= 0)
         {
             CompleteGame();
@@ -62,15 +64,20 @@ public class FoodCollector : MonoBehaviour
         {
             CompleteGame();
         }
+
         if (other.gameObject.CompareTag("Super_Fruit"))
         {
-            while(superTime > 0)
+            if(superTime > 0)
             {
                 superOn = true;
                 superTime -= Time.deltaTime;
             }
+            else
+            {
+                superTime = superReset;
+                superOn = false;
+            }
 
-            superTime = superReset;
         }
     }
 
