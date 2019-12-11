@@ -10,6 +10,9 @@ EditorBuildSettings:
     guid: 571081aff200c474fbe311e3b483d0d2
   - enabled: 1
     path: Assets/Scenes/First-Person-Scene.unity
+    guid: e9b190d6566109f4b9382d1a6f595b07
+  - enabled: 1
+    path: Assets/Scenes/Third-Person-Scene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/Game Over.unity
