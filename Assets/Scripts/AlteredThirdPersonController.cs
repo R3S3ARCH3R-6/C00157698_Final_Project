@@ -49,7 +49,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
-            m_OriginalCameraPosition = new Vector3(1.63f, 0.76f, -1.18f);
+            m_OriginalCameraPosition = new Vector3(1.63f, 0.76f, -2.9f);
             m_FovKick.Setup(m_Camera);
             m_HeadBob.Setup(m_Camera, m_StepInterval);
             m_StepCycle = 0f;
@@ -197,7 +197,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else
             {
-                newCameraPosition = new Vector3(1.63f, 0.76f, -1.18f);
+                newCameraPosition = new Vector3(1.63f, 0.76f, -2.9f);
                 newCameraPosition.y = m_OriginalCameraPosition.y - m_JumpBob.Offset();
             }
             m_Camera.transform.localPosition = newCameraPosition;
